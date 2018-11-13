@@ -1,24 +1,7 @@
-# README
+# stretchly_server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Maintainability](https://api.codeclimate.com/v1/badges/4a0b74c4dca13e6b0676/maintainability)](https://codeclimate.com/github/hovancik/stretchly_server/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/4a0b74c4dca13e6b0676/test_coverage)](https://codeclimate.com/github/hovancik/stretchly_server/test_coverage) [![Build Status](https://travis-ci.org/hovancik/stretchly_server.svg?branch=master)](https://travis-ci.org/hovancik/stretchly_server)
 
-Things you may want to cover:
+## License
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+See LICENSE file.
