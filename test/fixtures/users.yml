@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  provider: github
+  uid: 123456
+  auth_token: MyString
+  contributor: false
+
+two:
+  provider: github
+  uid: 234567
+  auth_token: MyString
+  contributor: false
