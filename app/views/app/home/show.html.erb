@@ -1,0 +1,25 @@
+<div
+  <% if logged_in? %>
+    <p>
+      Welcome!
+      <a href=<%= app_session_path(1) %> data-method="delete">
+        Logout
+      </a>
+    </p>
+  <% else %>
+    <p>
+      You are not logged in.
+    </p>
+    <div data-controller="terms">
+      <form>
+        <button formaction="/app/auth/patreon" data-target="terms.auth">Authenticate with Patreon</button>
+      </form>
+      <p>
+        <label>
+          <input type="checkbox" data-target="terms.checkbox" data-action="terms#setDisabled">
+          I agree to the <a href="https://github.com/hovancik/stretchly_server/blob/master/TERMS.md" target="_blank">Terms and Conditions</a> and <a href="https://github.com/hovancik/stretchly_server/blob/master/PRIVACY.md" target="_blank">Privacy Policy</a>.
+        </label>
+      </p>
+    </div>
+  <% end %>
+</div>
