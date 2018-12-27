@@ -63,3 +63,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Auth
 gem 'omniauth-patreon'
+
+# Patreon
+gem 'patreon', '~> 0.5.0'
+
+# Background jobs
+gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.3'
+gem 'delayed_job_recurring', '~> 0.3.8'

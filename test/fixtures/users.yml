@@ -11,3 +11,15 @@ two:
   uid: 234567
   auth_token: MyString
   contributor: false
+
+three:
+  provider: patreon
+  uid: 456
+  auth_token: MyString
+  contributor: false
+
+four:
+  provider: patreon
+  uid: 3456
+  auth_token: MyString
+  contributor: true
