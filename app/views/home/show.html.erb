@@ -1,0 +1,49 @@
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-left">
+      <div class="columns is-vcentered">
+        <div class="column is-8">
+          <h1 class="title is-spaced is-size-1">
+            Love your stretchly?
+          </h1>
+          <h2 class="subtitle">
+            Taking regular breaks and microbreaks makes you more effective -
+            that is science. But only you know your flow.
+            Support stretchly by becoming a Patreon on Patreon and simplify
+            your access to the settings that let you customize your breaks even more.
+          </h2>
+          <div data-controller="electron">
+            <div data-target="electron.visible" class="buttons are-medium">
+              <a onclick="window.ElectronBridge.openExternal('https://patreon.com/hovancik')" class="button is-primary is-inverted is-outlined">
+                <span class="icon is-small">
+                  <i class="fab fa-patreon"></i>
+                </span>
+                <span>Become a Patron</span>
+              </a>
+              <a href="<%= app_root_path %>" class="button is-primary is-inverted is-outlined">
+                <span class="icon is-small">
+                  <i class="fas fa-heart"></i>
+                </span>
+                <span>I am contributor already</span>
+              </a>
+            </div>
+            <div data-target="electron.hidden" class="buttons are-medium">
+              <a href="https://patreon.com/hovancik" class="button is-primary is-inverted is-outlined">
+                <span class="icon is-small">
+                  <i class="fab fa-patreon"></i>
+                </span>
+                <span>Become a Patron</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <figure class="image is-square">
+            <img src="/stretchly.png">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render "shared/footer" %>
+</section>
