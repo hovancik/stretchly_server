@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :contributor?
 
   private
 
@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
   def logged_in?
     current_user != nil
   end
+
+  def contributor?
+    logged_in? && current_user.contributor
+  end
+
 end
