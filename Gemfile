@@ -70,3 +70,6 @@ gem 'patreon', '~> 0.5.0'
 # Background jobs
 gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.3'
 gem 'delayed_job_recurring', '~> 0.3.8'
+
+# Error reporting
+gem 'rollbar'
