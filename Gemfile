@@ -65,7 +65,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'omniauth-patreon'
 
 # Patreon
-gem 'patreon', '~> 0.5.0'
+gem 'patreon', git: 'https://github.com/hovancik/patreon-ruby', branch: 'feature/remove-json-api-vanilla'
 
 # Background jobs
 gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.3'
