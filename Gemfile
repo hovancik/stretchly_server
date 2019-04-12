@@ -62,6 +62,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Auth
+gem 'omniauth-github'
 gem 'omniauth-patreon'
 
 # Patreon

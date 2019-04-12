@@ -4,6 +4,7 @@ module App
       user = User.find_or_create_from_auth_hash(auth_hash)
       session[:auth_token] = user.auth_token
       SetPatreonContributorsJob.perform_later
+      SetGithubContributorsJob.perform_later
       redirect_to app_root_path
     end
 

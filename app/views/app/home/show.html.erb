@@ -32,9 +32,9 @@
             </a>
           <% else %>
             <h2 class="subtitle">
-              It seems that you are not Patron, yet. If this is not correct,
-              please, come back again later, as we are checking with Patreon daily and
-              every time you authenticate.
+              It seems that you are not a contributor, yet. If this is not correct,
+              please, come back again later, as we are checking daily and
+              every time you authenticate (and it might take a minute).
             </h2>
             <a onclick="window.ElectronBridge.openExternal('https://patreon.com/hovancik')" class="button is-primary is-inverted is-outlined">
               <span class="icon is-small">
@@ -59,21 +59,31 @@
             the app works for you.
           </h2>
           <div data-controller="terms">
-            <form>
-              <button formaction="/app/auth/patreon" data-target="terms.auth" class="button is-primary is-inverted is-outlined">
-                <span class="icon is-small">
-                  <i class="fab fa-patreon"></i>
-                </span>
-                <span>Authenticate with Patreon</span>
-              </button>
-            </form>
-              <label class="checkbox is-large">
-                <input type="checkbox" data-target="terms.checkbox" data-action="terms#setDisabled">
-                I agree to the
-                <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/TERMS.md')">Terms and Conditions</a>
-                and
-                <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/PRIVACY.md')">Privacy Policy</a>.
-              </label>
+            <p class="buttons">
+              <form>
+                <button formaction="/app/auth/patreon" data-target="terms.auth" class="button is-primary is-inverted is-outlined">
+                  <span class="icon is-small">
+                    <i class="fab fa-patreon"></i>
+                  </span>
+                  <span>Authenticate with Patreon</span>
+                </button>
+              </form>
+              <form>
+                <button formaction="/app/auth/github" data-target="terms.auth" class="button is-primary is-inverted is-outlined">
+                  <span class="icon is-small">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Authenticate with Github</span>
+                </button>
+              </form>
+            </p>
+            <label class="checkbox is-large">
+              <input type="checkbox" data-target="terms.checkbox" data-action="terms#setDisabled">
+              I agree to the
+              <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/TERMS.md')">Terms and Conditions</a>
+              and
+              <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/PRIVACY.md')">Privacy Policy</a>.
+            </label>
           </div>
         <% end %>
       </div>
