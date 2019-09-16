@@ -12,7 +12,7 @@
     <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version="<%= ENV['MIN_STRETCHLY_VERSION']%>">
       <div data-target="electron.hidden">
         Lost? Head
-        <%= link_to "home", root_path %>
+        <%= link_to "Home", root_path, class:"has-text-white has-text-weight-bold" %>.
       </div>
       <div data-target="electron.visible">
         <% if logged_in? %>
@@ -80,9 +80,9 @@
             <label class="checkbox is-large">
               <input type="checkbox" data-target="terms.checkbox" data-action="terms#setDisabled">
               I agree to the
-              <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/TERMS.md')">Terms and Conditions</a>
+              <a class="has-text-white has-text-weight-bold" onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/TERMS.md')">Terms and Conditions</a>
               and
-              <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/PRIVACY.md')">Privacy Policy</a>.
+              <a class="has-text-white has-text-weight-bold" onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/master/PRIVACY.md')">Privacy Policy</a>.
             </label>
           </div>
         <% end %>
