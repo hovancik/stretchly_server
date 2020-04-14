@@ -2,7 +2,8 @@ language: ruby
 rvm:
   - 2.6.4
 before_install:
-  - gem update --system
+  # temporary fix
+  # - gem update --system
 cache:
   bundler: true
   directories:
