@@ -1,19 +1,3 @@
-@font-face {
-  font-family: 'Lato Thin';
-  src: url('./fonts/Lato-Thin.ttf') format('truetype'),
-       url('./fonts/Lato-Thin.woff2') format('woff2'),
-       url('./fonts/Lato-Thin.woff') format('woff'),
-       url('./fonts/Lato-Thin.svg#latothin') format('svg');
-}
-
-@font-face {
-  font-family: 'Lato Light';
-  src: url('./fonts/Lato-Light.ttf') format('truetype'),
-       url('./fonts/Lato-Light.woff2') format('woff2'),
-       url('./fonts/Lato-Light.woff') format('woff'),
-       url('./fonts/Lato-Light.svg#latolight') format('svg');
-}
-
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts/';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/brands';
@@ -22,9 +6,5 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts/';
 
 $stretchly: #478484;
 $primary: $stretchly;
-$family-sans-serif: "Lato Light", sans-serif;
+$family-sans-serif: 'Open Sans', sans-serif;
 @import '~bulma';
-
-body.darwin {
-  font-family: 'Lato Thin';
-}

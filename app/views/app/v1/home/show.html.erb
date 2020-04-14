@@ -1,0 +1,101 @@
+<section class="hero is-light is-fullheight">
+  <% if logged_in? %>
+    <div class="hero-head">
+      <nav class="column">
+        <a href="<%= app_v1_session_path(1) %>" data-method="delete" class="is-pulled-right button is-small is-light is-inverted is-outlined">
+          Logout
+        </a>
+      </nav>
+    </div>
+  <% end %>
+  <div class="hero-body">
+    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version="<%= ENV['MIN_STRETCHLY_VERSION']%>">
+      <div data-target="electron.hidden">
+        Lost? Head
+        <%= link_to "Home", root_path %>.
+      </div>
+      <div data-target="electron.visible">
+        <% if logged_in? %>
+
+          <% if contributor? %>
+            <h1 class="title is-spaced is-size-1">
+              Thank you!
+            </h1>
+            <h2 class="subtitle">
+              Every month, it takes a lot of work to remind you to take a break.
+              I hope Stretchly will help you lead more balanced life.
+            </h2>
+            <div data-target="electron.unsupported">
+              Looks like you are using an unsupported version of Stretchly. This might not work.
+            </div>
+            <script type="text/javascript">
+              window.ElectronBridge.setContributor()
+            </script>
+            <a onclick="window.ElectronBridge.showContributorPreferences()" class="button is-light is-inverted is-outlined">
+              Show Contributor Preferences
+            </a>
+          <% else %>
+            <h2 class="subtitle">
+              It seems that you are not a contributor, yet. If this is not correct,
+              please, come back again later, as we are checking daily and
+              every time you authenticate (and it might take a minute).
+            </h2>
+            <a onclick="window.ElectronBridge.openExternal('https://patreon.com/hovancik')" class="button is-light is-inverted is-outlined">
+              <span class="icon is-small">
+                <i class="fab fa-patreon"></i>
+              </span>
+              <span>Become a Patron</span>
+            </a>
+            <a href="<%= app_root_path %>" class="button is-light is-inverted is-outlined">
+              <span class="icon is-small">
+                <i class="fas fa-heart"></i>
+              </span>
+              <span>I am contributor already</span>
+            </a>
+          <% end %>
+        <% else %>
+          <h1 class="title is-spaced is-size-1">
+            Stretchly contributor?
+          </h1>
+          <h2 class="subtitle">
+            There is something more you will get - apart from good
+            feelling. More ways to personalize and get control on how
+            the app works for you.
+          </h2>
+          <div data-controller="terms">
+            <p class="buttons">
+              <% if @provider == 'patreon' || @provider.nil? %>
+                <form>
+                  <button formaction="/app/v1/auth/patreon" data-target="terms.auth" class="button is-light is-inverted is-outlined">
+                    <span class="icon is-small">
+                      <i class="fab fa-patreon"></i>
+                    </span>
+                    <span>Continue with Patreon</span>
+                  </button>
+                </form>
+              <% end %>
+              <% if @provider == 'github' || @provider.nil? %>
+                <form>
+                  <button formaction="/app/v1/auth/github" data-target="terms.auth" class="button is-light is-inverted is-outlined">
+                    <span class="icon is-small">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Continue with Github</span>
+                  </button>
+                </form>
+              <% end %>
+            </p>
+            <label class="checkbox is-large">
+              <input type="checkbox" data-target="terms.checkbox" data-action="terms#setDisabled">
+              I agree to the
+              <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/Stretchly_server/blob/master/TERMS.md')">Terms and Conditions</a>
+              and
+              <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/Stretchly_server/blob/master/PRIVACY.md')">Privacy Policy</a>.
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render "shared/footer_v1" %>
+</section>
