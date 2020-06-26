@@ -67,6 +67,8 @@ gem 'omniauth-patreon'
 
 # Patreon
 gem 'patreon', git: 'https://github.com/hovancik/patreon-ruby', branch: 'feature/remove-json-api-vanilla'
+#  Github API - Sponsors
+gem 'graphlient'
 
 # Background jobs
 gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.4'

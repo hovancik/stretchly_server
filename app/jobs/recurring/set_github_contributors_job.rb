@@ -6,7 +6,8 @@ module Recurring
     run_at '11:00pm'
 
     def perform
-      contributor_ids = Github::GetContributorsService.perform
+      contributor_ids = (Github::GetContributorsService.perform +
+        Github::GetSponsorsService.perform).uniq
       service = Users::SetGithubContributorsService.new(contributor_ids)
       service.perform
     end
