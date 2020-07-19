@@ -9,7 +9,9 @@ services:
       - .:/stretchly_server
     ports:
       - '3035:3035'
+    network_mode: "bridge"
   db:
+    network_mode: "bridge"
     image: postgres
     ports:
       - "5431:5432"
@@ -22,3 +24,4 @@ services:
       - "4000:4000"
     depends_on:
       - db
+    network_mode: "bridge"
