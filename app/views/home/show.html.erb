@@ -1,4 +1,4 @@
-<section class="hero is-primary is-fullheight">
+<section class="hero is-light is-fullheight">
   <div class="hero-body">
     <div class="container has-text-left">
       <div class="columns is-vcentered">
@@ -14,13 +14,13 @@
           </h2>
           <div data-controller="electron">
             <div data-target="electron.visible" class="buttons are-medium">
-              <a onclick="window.ElectronBridge.openExternal('https://patreon.com/hovancik')" class="button is-primary is-inverted is-outlined">
+              <a onclick="window.ElectronBridge.openExternal('https://patreon.com/hovancik')" class="button is-light is-inverted is-outlined">
                 <span class="icon is-small">
                   <i class="fab fa-patreon"></i>
                 </span>
                 <span>Become a Patron</span>
               </a>
-              <a href="<%= app_root_path %>" class="button is-primary is-inverted is-outlined">
+              <a href="<%= app_root_path %>" class="button is-light is-inverted is-outlined">
                 <span class="icon is-small">
                   <i class="fas fa-heart"></i>
                 </span>
@@ -28,7 +28,7 @@
               </a>
             </div>
             <div data-target="electron.hidden" class="buttons are-medium">
-              <a href="https://patreon.com/hovancik" class="button is-primary is-inverted is-outlined">
+              <a href="https://patreon.com/hovancik" class="button is-light is-inverted is-outlined">
                 <span class="icon is-small">
                   <i class="fab fa-patreon"></i>
                 </span>
@@ -45,5 +45,5 @@
       </div>
     </div>
   </div>
-  <%= render "shared/footer" %>
+  <%= render "shared/footer_v1" %>
 </section>
