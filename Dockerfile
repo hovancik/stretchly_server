@@ -1,4 +1,4 @@
-FROM ruby:2.6.4
+FROM ruby:2.6.6
 RUN apt-get update -qq
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
@@ -9,6 +9,6 @@ RUN mkdir /stretchly_server
 WORKDIR /stretchly_server
 ADD Gemfile Gemfile.lock /stretchly_server/
 RUN bundle install
-#ADD package.json yarn.lock /stretchly_server
-#RUN yarn
+ADD package.json yarn.lock /stretchly_server/
+RUN yarn
 ADD . /stretchly_server
