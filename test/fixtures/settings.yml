@@ -2,8 +2,8 @@
 
 one:
   user: one
-  data: 
+  data: {} 
 
 two:
   user: two
-  data: 
+  data: {} 
