@@ -1,0 +1,63 @@
+<section class="hero is-light is-fullheight">
+  <% if logged_in? %>
+    <div class="hero-head">
+      <nav class="column">
+        <a href="<%= app_v1_session_path(1) %>" data-method="delete" class="is-pulled-right button is-small is-light is-inverted is-outlined">
+          Logout
+        </a>
+      </nav>
+    </div>
+  <% end %>
+  <div class="hero-body ">
+    <div data-controller="electron" class="container"  data-electron-minimal-stretchly-version="<%= ENV['MIN_STRETCHLY_VERSION']%>">
+      <div data-target="electron.hidden">
+        Lost? Head
+        <%= link_to "Home", root_path %>.
+      </div>
+      <div data-target="electron.visible">
+        <% if logged_in? && contributor? %>
+          <h1 class="title">Preferences sync</h1>
+          <div data-target="electron.unsupported" class="notification is-warning">
+            Looks like you are using an unsupported version of Stretchly. This might not work.
+          </div>
+          <div class="content">
+            <p>
+              When there are differences between your Local Preferences
+              and Remote ones, you'll see them below.
+              Local Preferences are <span class="has-text-primary">green</span>,
+              Remote are <span class="has-text-info">blue</span>.
+              After restore Stretchly will be restarted.
+            </p>
+            <p>
+              If anything goes wrong, remove Stretchly preferences file
+              and restart it to get the default ones.
+            </p>
+          </div>
+          <div data-controller="sync">
+            <div class="buttons">
+              <%= form_with do %>
+                <a data-action="click->sync#backup" class="button is-primary">Backup</a>
+                <% if current_user.setting.present? %>
+                  <a data-action="click->sync#restore" class="button is-info">Restore</a>
+                <% end %>
+                <%= link_to "Refresh", app_v1_sync_path, class: "button is-success"%>
+              <% end %>
+            </div>
+            <div class="box">
+              <span class="has-text-primary">Local Preferences</span> <br/>
+              <% if current_user.setting.present? %>
+                <span class="has-text-info">Remote Preferences, last backed up at <%= current_user.setting.updated_at %></span>
+              <% else %>
+                <span class="has-text-info">Remote Preferences, never backed up</span>
+              <% end %>
+            </div>
+            <div id="settings" class="content">
+
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render "shared/footer_v1" %>
+</section>

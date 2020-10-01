@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_token :auth_token
+  has_one :setting
 
   validates :uid, presence: true
   validates :provider, presence: true, uniqueness: { scope: :uid }

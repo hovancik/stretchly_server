@@ -8,7 +8,6 @@ export default class extends Controller {
     this.setVisible()
     this.setHidden()
     this.setUnsupported()
-
   }
 
   setVisible () {
@@ -30,5 +29,4 @@ export default class extends Controller {
       el.style.display = semver.gte(version, minVersion) ? 'none' : ''
     })
   }
-
 }
