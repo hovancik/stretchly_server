@@ -25,15 +25,24 @@
               Every month, it takes a lot of work to remind you to take a break.
               I hope Stretchly will help you lead more balanced life.
             </h2>
-            <div data-target="electron.unsupported">
+            <div data-target="electron.unsupported" class="notification is-warning has-text-left">
               Looks like you are using an unsupported version of Stretchly. This might not work.
             </div>
             <script type="text/javascript">
               window.ElectronBridge.setContributor()
             </script>
             <a onclick="window.ElectronBridge.showContributorPreferences()" class="button is-light is-inverted is-outlined">
-              Show Contributor Preferences
+              <span class="icon is-small">
+                <i class="fas fa-user-cog"></i>
+              </span>
+              <span>Contributor Preferences</span>
             </a>
+            <!-- <a href="<%= app_v1_sync_path %>" class="button is-light is-inverted is-outlined">
+              <span class="icon is-small">
+                <i class="fas fa-sync"></i>
+              </span>
+              <span>Preferences sync</span>
+            </a> -->
           <% else %>
             <h2 class="subtitle">
               It seems that you are not a contributor, yet. If this is not correct,

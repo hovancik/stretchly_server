@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_16_075536) do
+ActiveRecord::Schema.define(version: 2020_09_25_142417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(version: 2019_09_16_075536) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.jsonb "data", default: "{}", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", null: false
     t.string "uid", null: false
@@ -43,4 +51,5 @@ ActiveRecord::Schema.define(version: 2019_09_16_075536) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
+  add_foreign_key "settings", "users"
 end
