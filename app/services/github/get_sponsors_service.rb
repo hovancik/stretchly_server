@@ -12,17 +12,24 @@ module Github
         query {
           user(login: "hovancik") {
             name
-            sponsorshipsAsMaintainer(first: 1) {
+            sponsorshipsAsMaintainer(first: 100, includePrivate: true) {
               nodes {
-                sponsor {
-                  databaseId
+                sponsorEntity {
+                  ... on User {
+                    databaseId
+                  }
                 }
               }
             }
           }
         }
       GRAPHQL
-      response.data.user.sponsorships_as_maintainer.nodes.map { |u| u.sponsor.database_id.to_s }
+      response.data.user.sponsorships_as_maintainer.nodes.map { |u| u.sponsor_entity.database_id.to_s }
     end
   end
 end
+
+# TODO - add ORGS, needs new token ['read:org'] 
+# ... on Organization {
+#   databaseId
+# }
