@@ -31,7 +31,7 @@ Violation of any of the terms below will result in the termination of your Accou
 
 * We claim no intellectual property rights over the material you provide to the Service.
 
-* The source code of application is licensed under the BSD 2-Clause "Simplified" License. See [LICENSE](https://github.com/hovancik/stretchly_server/blob/master/LICENSE) file for details.
+* The source code of application is licensed under the BSD 2-Clause "Simplified" License. See [LICENSE](https://github.com/hovancik/stretchly_server/blob/trunk/LICENSE) file for details.
 
 **General Conditions**
 
