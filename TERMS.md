@@ -1,11 +1,11 @@
 Terms and Conditions
 ====================
 
-Jan Hovancik built the "Your stretchly" website as an Open Source app. By using the my.stretchly.net website (“Service”) you are agreeing to be bound by the following terms and conditions (“Terms and Conditions”).
+Jan Hovancik built the "Your Stretchly" website as an Open Source app. By using the my.stretchly.net website (“Service”) you are agreeing to be bound by the following terms and conditions (“Terms and Conditions”).
 
-"Your stretchly" reserves the right to update and change the Terms and Conditions from time to time without notice. Any new features that augment or enhance the current Service, including the release of new tools and resources, shall be subject to the Terms and Conditions. Continued use of the Service after any such changes shall constitute your consent to such changes.
+"Your Stretchly" reserves the right to update and change the Terms and Conditions from time to time without notice. Any new features that augment or enhance the current Service, including the release of new tools and resources, shall be subject to the Terms and Conditions. Continued use of the Service after any such changes shall constitute your consent to such changes.
 
-Violation of any of the terms below will result in the termination of your Account. While "Your stretchly" prohibits such conduct and Content on the Service, you understand and agree that Jan Hovancik cannot be responsible for the Content posted on the Service and you nonetheless may be exposed to such materials. You agree to use the Service at your own risk.
+Violation of any of the terms below will result in the termination of your Account. While "Your Stretchly" prohibits such conduct and Content on the Service, you understand and agree that Jan Hovancik cannot be responsible for the Content posted on the Service and you nonetheless may be exposed to such materials. You agree to use the Service at your own risk.
 
 **Account Terms**
 
@@ -19,13 +19,13 @@ Violation of any of the terms below will result in the termination of your Accou
 
 **Cancellation and Termination**
 
-* "Your stretchly", in its sole discretion, has the right to suspend or terminate your account and refuse any and all current or future use of the Service for any reason at any time. Such termination of the Service will result in the deactivation or deletion of your Account or your access to your Account. We reserve the right to refuse service to anyone for any reason at any time.
+* "Your Stretchly", in its sole discretion, has the right to suspend or terminate your account and refuse any and all current or future use of the Service for any reason at any time. Such termination of the Service will result in the deactivation or deletion of your Account or your access to your Account. We reserve the right to refuse service to anyone for any reason at any time.
 
 **Modifications to the Service**
 
-* "Your stretchly" reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice.
+* "Your Stretchly" reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice.
 
-* "Your stretchly" shall not be liable to you or to any third party for any modification, suspension or discontinuance of the Service.
+* "Your Stretchly" shall not be liable to you or to any third party for any modification, suspension or discontinuance of the Service.
 
 **Copyright and Content Ownership**
 
@@ -37,13 +37,13 @@ Violation of any of the terms below will result in the termination of your Accou
 
 * Your use of the Service is at your sole risk. The service is provided on an “as is” and “as available” basis.
 
-* You understand that "Your stretchly" uses third party vendors and hosting partners to provide the necessary hardware, software, networking, storage, and related technology required to run the Service.
+* You understand that "Your Stretchly" uses third party vendors and hosting partners to provide the necessary hardware, software, networking, storage, and related technology required to run the Service.
 
-* You must not modify, adapt or hack the Service or modify another website so as to falsely imply that it is associated with the Service, "Your stretchly", or any other Jan Hovancik's service.
+* You must not modify, adapt or hack the Service or modify another website so as to falsely imply that it is associated with the Service, "Your Stretchly", or any other Jan Hovancik's service.
 
-* Verbal, physical, written or other abuse (including threats of abuse or retribution) of any "Your stretchly" customer, employee, member, or officer will result in immediate account termination.
+* Verbal, physical, written or other abuse (including threats of abuse or retribution) of any "Your Stretchly" customer, employee, member, or officer will result in immediate account termination.
 
-* "Your stretchly" does not warrant that (i) the service will meet your specific requirements, (ii) the service will be uninterrupted, timely, secure, or error-free, (iii) the results that may be obtained from the use of the service will be accurate or reliable, (iv) the quality of any products, services, information, or other material purchased or obtained by you through the service will meet your expectations, and (v) any errors in the Service will be corrected.
+* "Your Stretchly" does not warrant that (i) the service will meet your specific requirements, (ii) the service will be uninterrupted, timely, secure, or error-free, (iii) the results that may be obtained from the use of the service will be accurate or reliable, (iv) the quality of any products, services, information, or other material purchased or obtained by you through the service will meet your expectations, and (v) any errors in the Service will be corrected.
 
 * You expressly understand and agree that Jan Hovancik shall not be liable for any direct, indirect, incidental, special, consequential or exemplary damages, including but not limited to, damages for loss of profits, goodwill, use, data or other intangible losses (even if Jan Hovancik has been advised of the possibility of such damages), resulting from: (i) the use or the inability to use the service; (ii) the cost of procurement of substitute goods and services resulting from any goods, data, information or services purchased or obtained or messages received or transactions entered into through or from the service; (iii) unauthorized access to or alteration of your transmissions or data; (iv) statements or conduct of any third party on the service; (v) or any other matter relating to the service.
 
