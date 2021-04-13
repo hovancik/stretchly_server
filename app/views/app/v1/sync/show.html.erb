@@ -9,15 +9,15 @@
     </div>
   <% end %>
   <div class="hero-body ">
-    <div data-controller="electron" class="container"  data-electron-minimal-stretchly-version="<%= ENV['MIN_STRETCHLY_VERSION']%>">
-      <div data-target="electron.hidden">
+    <div data-controller="electron" class="container" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION']%>">
+      <div data-electron-target="hidden">
         Lost? Head
         <%= link_to "Home", root_path %>.
       </div>
-      <div data-target="electron.visible">
+      <div data-electron-target="visible">
         <% if logged_in? && contributor? %>
           <h1 class="title">Sync Preferences</h1>
-          <div data-target="electron.unsupported" class="notification is-warning">
+          <div data-electron-target="unsupported" class="notification is-warning">
             Looks like you are using an unsupported version of Stretchly. This might not work.
           </div>
           <div class="content">

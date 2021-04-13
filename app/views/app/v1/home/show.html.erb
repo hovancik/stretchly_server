@@ -9,12 +9,12 @@
     </div>
   <% end %>
   <div class="hero-body">
-    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version="<%= ENV['MIN_STRETCHLY_VERSION']%>">
-      <div data-target="electron.hidden">
+    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION']%>">
+      <div data-electron-target="hidden">
         Lost? Head
         <%= link_to "Home", root_path %>.
       </div>
-      <div data-target="electron.visible">
+      <div data-electron-target="visible">
         <% if logged_in? %>
 
           <% if contributor? %>
@@ -25,7 +25,7 @@
               Every month, it takes a lot of work to remind you to take a break.
               I hope Stretchly will help you lead more balanced life.
             </h2>
-            <div data-target="electron.unsupported" class="notification is-warning has-text-left">
+            <div data-electron-target="unsupported" class="notification is-warning has-text-left">
               Looks like you are using an unsupported version of Stretchly. This might not work.
             </div>
             <script type="text/javascript">
@@ -75,7 +75,7 @@
             <p class="buttons">
               <% if @provider == 'patreon' || @provider.nil? %>
                 <form>
-                  <button formaction="/app/v1/auth/patreon" data-target="terms.auth" class="button is-light is-inverted is-outlined">
+                  <button formaction="/app/v1/auth/patreon" data-terms-target="auth" class="button is-light is-inverted is-outlined">
                     <span class="icon is-small">
                       <i class="fab fa-patreon"></i>
                     </span>
@@ -85,7 +85,7 @@
               <% end %>
               <% if @provider == 'github' || @provider.nil? %>
                 <form>
-                  <button formaction="/app/v1/auth/github" data-target="terms.auth" class="button is-light is-inverted is-outlined">
+                  <button formaction="/app/v1/auth/github" data-terms-target="auth" class="button is-light is-inverted is-outlined">
                     <span class="icon is-small">
                       <i class="fab fa-github"></i>
                     </span>
@@ -95,7 +95,7 @@
               <% end %>
             </p>
             <label class="checkbox is-large">
-              <input type="checkbox" data-target="terms.checkbox" data-action="terms#setDisabled">
+              <input type="checkbox" data-terms-target="checkbox" data-action="terms#setDisabled">
               I agree to the
               <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/Stretchly_server/blob/trunk/TERMS.md')">Terms and Conditions</a>
               and
