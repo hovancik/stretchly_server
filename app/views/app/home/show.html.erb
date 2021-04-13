@@ -9,12 +9,12 @@
     </div>
   <% end %>
   <div class="hero-body">
-    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version="<%= ENV['MIN_STRETCHLY_VERSION']%>">
-      <div data-target="electron.hidden">
+    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION']%>">
+      <div data-electron-target="hidden">
         Lost? Head
         <%= link_to "Home", root_path, class:"has-text-white has-text-weight-bold" %>.
       </div>
-      <div data-target="electron.visible">
+      <div data-electron-target="visible">
         <% if logged_in? %>
           <h1 class="title is-spaced is-size-1">
             Thank you!
@@ -24,7 +24,7 @@
             I hope Stretchly will help you lead more balanced life.
           </h2>
           <% if contributor? %>
-            <div data-target="electron.unsupported">
+            <div data-electron-target="unsupported">
               Looks like you are using an unsupported version of Stretchly. This might not work.
             </div>
             <a onclick="window.ElectronBridge.openContriborSettings()" class="button is-primary is-inverted is-outlined">
@@ -61,7 +61,7 @@
           <div data-controller="terms">
             <p class="buttons">
               <form>
-                <button formaction="/app/auth/patreon" data-target="terms.auth" class="button is-primary is-inverted is-outlined">
+                <button formaction="/app/auth/patreon" data-terms-target="auth" class="button is-primary is-inverted is-outlined">
                   <span class="icon is-small">
                     <i class="fab fa-patreon"></i>
                   </span>
@@ -69,7 +69,7 @@
                 </button>
               </form>
               <form>
-                <button formaction="/app/auth/github" data-target="terms.auth" class="button is-primary is-inverted is-outlined">
+                <button formaction="/app/auth/github" data-terms-target="auth" class="button is-primary is-inverted is-outlined">
                   <span class="icon is-small">
                     <i class="fab fa-github"></i>
                   </span>
@@ -78,7 +78,7 @@
               </form>
             </p>
             <label class="checkbox is-large">
-              <input type="checkbox" data-target="terms.checkbox" data-action="terms#setDisabled">
+              <input type="checkbox" data-terms-target="checkbox" data-action="terms#setDisabled">
               I agree to the
               <a class="has-text-white has-text-weight-bold" onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/stretchly_server/blob/trunk/TERMS.md')">Terms and Conditions</a>
               and

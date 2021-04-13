@@ -10,6 +10,7 @@ export default class extends Controller {
   }
 
   async backup () {
+    this.element.classList.add('is-loading')
     const settings = await window.ElectronBridge.currentSettings()
     let result = await fetch('/settings', {
       method: 'POST',
@@ -30,8 +31,10 @@ export default class extends Controller {
   }
 
   async restore () {
+    this.element.classList.add('is-loading')
     const remoteSettings = await this.remoteSettings()
-    window.ElectronBridge.restoreRemoteSettings(remoteSettings.data)
+    await window.ElectronBridge.restoreRemoteSettings(remoteSettings.data)
+    window.location.reload()
   }
 
   async remoteSettings () {

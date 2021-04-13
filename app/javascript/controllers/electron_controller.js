@@ -3,6 +3,7 @@ const semver = require('semver')
 
 export default class extends Controller {
   static targets = [ 'visible', 'hidden', 'unsupported' ]
+  static values = { minimalStretchlyVersion: String }
 
   connect () {
     this.setVisible()
@@ -23,7 +24,7 @@ export default class extends Controller {
   }
 
   setUnsupported () {
-    const minVersion = this.data.get("minimalStretchlyVersion")
+    const minVersion = this.minimalStretchlyVersionValue
     const version = !!window.ElectronBridge ? window.ElectronBridge.stretchlyVersion() : '0'
     this.unsupportedTargets.forEach((el) => {
       el.style.display = semver.gte(version, minVersion) ? 'none' : ''
