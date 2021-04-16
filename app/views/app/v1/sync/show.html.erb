@@ -26,11 +26,10 @@
               and Remote ones, you'll see them below.
               Local Preferences are <span class="has-text-primary">green</span>,
               Remote are <span class="has-text-info">blue</span>.
-              After restore Stretchly will be restarted.
             </p>
             <p>
               If anything goes wrong, remove Stretchly preferences file
-              and restart it to get the default ones.
+              and restart Stretchly to get the default ones.
             </p>
           </div>
           <div data-controller="sync">
@@ -40,7 +39,7 @@
                 <% if current_user.setting.present? %>
                   <a data-action="click->sync#restore" class="button is-info">Restore</a>
                 <% end %>
-                <%= link_to "Refresh", app_v1_sync_path, class: "button is-success"%>
+                <%= link_to "Refresh Data", app_v1_sync_path, class: "button is-success"%>
               <% end %>
             </div>
             <div class="box">
