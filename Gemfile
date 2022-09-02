@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.2'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
@@ -76,3 +76,8 @@ gem 'delayed_job_recurring', '~> 0.3.8'
 
 # Error reporting
 gem 'rollbar'
+
+# https://stackoverflow.com/questions/71851775/rails-6-1-5-uninitialized-constant-mailtestmailer
+gem "net-smtp" # to send email
+gem "net-imap" # for rspec
+gem "net-pop"  # for rspec
