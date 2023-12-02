@@ -69,6 +69,8 @@ gem 'omniauth-patreon'
 gem 'patreon', git: 'https://github.com/hovancik/patreon-ruby', branch: 'feature/remove-json-api-vanilla'
 #  Github API - Sponsors
 gem 'graphlient'
+# https://github.com/github/graphql-client/issues/310
+gem "graphql",     '>= 2.0.27',  '< 2.1'
 
 # Background jobs
 gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.4'
