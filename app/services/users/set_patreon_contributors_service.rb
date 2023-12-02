@@ -7,7 +7,7 @@ module Users
 
     def perform
       User.where(provider: 'patreon').each do |user|
-        user.update(contributor: @patron_ids.include?(user.uid))
+        user.update(contributor: @patron_ids.include?(user.uid) || user.manual_contributor)
       end
     end
   end

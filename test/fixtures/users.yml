@@ -5,21 +5,39 @@ one:
   uid: 123456
   auth_token: MyString
   contributor: false
+  manual_contributor: false  
 
 two:
   provider: github
   uid: 234567
   auth_token: MyString
   contributor: false
+  manual_contributor: false  
 
 three:
   provider: patreon
   uid: 456
   auth_token: MyString
   contributor: false
+  manual_contributor: false  
 
 four:
   provider: patreon
   uid: 3456
   auth_token: MyString
   contributor: true
+  manual_contributor: false  
+
+five:
+  provider: patreon
+  uid: 34567
+  auth_token: MyString
+  contributor: false  
+  manual_contributor: true  
+
+six:
+  provider: github
+  uid: 34567
+  auth_token: MyString
+  contributor: false  
+  manual_contributor: true    
