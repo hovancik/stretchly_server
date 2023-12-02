@@ -3,7 +3,7 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 
 [build]
-  builder = "heroku/buildpacks:20"
+  builder = "heroku/builder:22"
   buildpacks = ["heroku/nodejs", "heroku/ruby"]
 
   [build.args]
