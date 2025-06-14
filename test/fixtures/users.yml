@@ -25,7 +25,7 @@ four:
   provider: patreon
   uid: 3456
   auth_token: MyString
-  contributor: true
+  contributor: false
   manual_contributor: false  
 
 five:
@@ -40,4 +40,4 @@ six:
   uid: 34567
   auth_token: MyString
   contributor: false  
-  manual_contributor: true    
+  manual_contributor: true

@@ -7,7 +7,8 @@ module Users
 
     def perform
       User.where(provider: 'github').each do |user|
-        user.update(contributor: @patron_ids.include?(user.uid) || user.manual_contributor)
+        contributor = @patron_ids.include?(user.uid) || user.manual_contributor || user.contributor
+        user.update(contributor: contributor, manual_contributor: contributor) if contributor
       end
     end
   end
