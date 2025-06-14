@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def contributor?
-    logged_in? && current_user.contributor
+    logged_in? && (current_user.contributor || current_user.manual_contributor)
   end
 
 end
