@@ -9,10 +9,12 @@
     </div>
   <% end %>
   <div class="hero-body ">
-    <div data-controller="electron" class="container" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION']%>">
-      <div data-electron-target="hidden">
-        Lost? Head
-        <%= link_to "Home", root_path %>.
+    <div data-controller="electron sync" class="container" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION']%>">
+      <div data-electron-target="loader" class="has-text-centered">
+        <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center" style="min-height: 200px;">
+          <button class="button is-large is-light is-loading"></button>
+          <p class="has-text-grey-light mt-4">Loading Stretchly...</p>
+        </div>
       </div>
       <div data-electron-target="visible">
         <% if logged_in? && contributor? %>
@@ -32,7 +34,7 @@
               and restart Stretchly to get the default ones.
             </p>
           </div>
-          <div data-controller="sync">
+          <div>
             <div class="buttons">
               <%= form_with do %>
                 <a data-action="click->sync#backup" class="button is-primary">Backup</a>
