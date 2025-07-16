@@ -9,6 +9,18 @@ export default class extends Controller {
     this.checkElectronBridge()
   }
 
+  disconnect () {
+    // Clear any pending timeouts to prevent memory leaks
+    if (this.retryTimeoutId) {
+      clearTimeout(this.retryTimeoutId)
+      this.retryTimeoutId = null
+    }
+    if (this.syncTimeoutId) {
+      clearTimeout(this.syncTimeoutId)
+      this.syncTimeoutId = null
+    }
+  }
+
   checkElectronBridge () {
     if (window.ElectronBridge) {
       this.hideLoader()
@@ -17,17 +29,21 @@ export default class extends Controller {
       this.setContributor()
       
       // Only try to communicate with sync controller if we're on a page that has it
-      setTimeout(() => {
+      this.syncTimeoutId = setTimeout(() => {
         const syncController = window.syncControllerInstance
         if (syncController && syncController.onElectronReady) {
           syncController.onElectronReady()
         }
+        this.syncTimeoutId = null
       }, 50)
     } else {
       this.showLoader()
       this.hideContent()
       // Check again after a short delay - will continue indefinitely
-      setTimeout(() => this.checkElectronBridge(), 100)
+      this.retryTimeoutId = setTimeout(() => {
+        this.retryTimeoutId = null
+        this.checkElectronBridge()
+      }, 100)
     }
   }
 
