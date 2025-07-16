@@ -73,7 +73,7 @@ export default class extends Controller {
 
   async setUnsupported () {
     const minVersion = this.minimalStretchlyVersionValue
-    const version = !!window.ElectronBridge ? await window.ElectronBridge.stretchlyVersion() : '0'
+    const version = await window.ElectronBridge.stretchlyVersion()
     this.unsupportedTargets.forEach((el) => {
       el.style.display = semver.gte(version, minVersion) ? 'none' : ''
     })
