@@ -21,11 +21,11 @@ export default class extends Controller {
     }
   }
 
-  checkElectronBridge () {
+  async checkElectronBridge () {
     if (window.ElectronBridge) {
       this.hideLoader()
       this.showContent()
-      this.setUnsupported()
+      await this.setUnsupported()
       this.setContributor()
       
       // Only try to communicate with sync controller if we're on a page that has it

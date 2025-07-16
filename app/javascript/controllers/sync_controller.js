@@ -17,8 +17,8 @@ export default class extends Controller {
     }
   }
 
-  onElectronReady () {
-    this.setSettings()
+  async onElectronReady () {
+    await this.setSettings()
   }
 
   async backup () {
