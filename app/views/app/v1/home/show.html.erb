@@ -9,10 +9,12 @@
     </div>
   <% end %>
   <div class="hero-body">
-    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION']%>">
-      <div data-electron-target="hidden">
-        Lost? Head
-        <%= link_to "Home", root_path %>.
+    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION']%>" data-electron-is-contributor-value="<%= logged_in? && contributor? %>">
+      <div data-electron-target="loader" class="has-text-centered">
+        <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center" style="min-height: 200px;">
+          <button class="button is-large is-light is-loading"></button>
+          <p class="has-text-grey-light mt-4">Loading Stretchly...</p>
+        </div>
       </div>
       <div data-electron-target="visible">
         <% if logged_in? %>
@@ -28,9 +30,6 @@
             <div data-electron-target="unsupported" class="notification is-warning has-text-left">
               Looks like you are using an unsupported version of Stretchly. This might not work.
             </div>
-            <script type="text/javascript">
-              window.ElectronBridge.setContributor()
-            </script>
             <a onclick="window.ElectronBridge.showContributorPreferences()" class="button is-light is-inverted is-outlined">
               <span class="icon is-small">
                 <i class="fas fa-user-cog"></i>
@@ -53,7 +52,7 @@
               <span class="icon is-small">
                 <i class="fab fa-patreon"></i>
               </span>
-              <span>Become a Patron</span>
+              <span>Become a contributor</span>
             </a>
             <a href="<%= app_v1_root_path %>" class="button is-light is-inverted is-outlined">
               <span class="icon is-small">

@@ -3,10 +3,22 @@ const isEqual = require('lodash.isequal')
 const util = require('util')
 
 export default class extends Controller {
-  static targets = []
+  static targets = ["settings"]
 
   connect () {
-    this.setSettings()
+    // Add global reference as fallback for electron controller to find us
+    window.syncControllerInstance = this
+  }
+
+  disconnect () {
+    // Clean up global reference
+    if (window.syncControllerInstance === this) {
+      window.syncControllerInstance = null
+    }
+  }
+
+  async onElectronReady () {
+    await this.setSettings()
   }
 
   async backup () {
@@ -46,8 +58,13 @@ export default class extends Controller {
   }
 
   async setSettings () {
+    // Clear previous content first
+    this.settingsTarget.innerHTML = ''
+    
     const stretchlySettings = await window.ElectronBridge.currentSettings()
+    
     let remoteSettings = await this.remoteSettings() || {data: {}}
+    
     let keys = Object.assign({}, Object.keys(stretchlySettings))
     if (remoteSettings && remoteSettings.data) {
       Object.assign(keys, Object.keys(remoteSettings.data))
@@ -59,13 +76,13 @@ export default class extends Controller {
         let html = `<div class="box"><h2 class="is-size-5">${key}</h2>`
         html += `<p> <span class="has-text-primary" style="white-space: pre-line">${util.inspect(stretchlySettings[key], { compact: false, depth: 5 })}</span><br/>`
         html += `<span class="has-text-info" style="white-space: pre-line">${util.inspect(remoteSettings.data[key], { compact: false, depth: 5 })}</span></p></div>`
-        document.querySelector('#settings').insertAdjacentHTML('beforeEnd', html)
+        this.settingsTarget.insertAdjacentHTML('beforeEnd', html)
       }
     })
     if (allSame) {
       let html = `<div class="box"><h2 class="is-size-5">Sweet!</h2>`
       html += `<p>Your Local and Remote preferences are the same. You're all synced up :)</p>`
-      document.querySelector('#settings').insertAdjacentHTML('beforeEnd', html)
+      this.settingsTarget.insertAdjacentHTML('beforeEnd', html)
     }
   }
 }
