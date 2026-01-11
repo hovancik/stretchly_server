@@ -6,6 +6,8 @@ class User < ApplicationRecord
   validates :provider, presence: true, uniqueness: { scope: :uid }
   validates_inclusion_of :contributor, in: [true, false]
 
+  before_create { self.manual_contributor = true }
+
   def self.find_or_create_from_auth_hash(auth_hash)
     User.find_or_create_by(uid: auth_hash.uid, provider: auth_hash.provider)
   end
