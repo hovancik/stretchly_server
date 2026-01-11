@@ -38,9 +38,3 @@ jobs:
           yarn --frozen-lockfile
       - name: Run unit tests
         run: bundle exec rails test
-        env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-      - name: Publish code coverage
-        uses: paambaati/codeclimate-action@v5.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
