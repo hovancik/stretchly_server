@@ -25,13 +25,14 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: 16.19.0
+          node-version: 20.19.6
       - name: Setup the Rails application
         env:
           RAILS_ENV: test
         run: |
           sudo apt-get -yqq install libpq-dev
-          bundle install --no-deployment --jobs 4 --retry 3
+          bundle config set deployment false
+          bundle install --jobs 4 --retry 3
           cp config/database.github.yml config/database.yml
           bundle exec rails db:create
           bundle exec rails db:migrate

@@ -56,6 +56,8 @@ group :test do
   gem 'webdrivers'
   # Code coverage
   gem 'simplecov', require: false
+  # Pin minitest to 5.x for Rails 6.1 compatibility
+  gem 'minitest', '~> 5.16'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -73,6 +75,7 @@ gem 'graphlient'
 gem "graphql",     '>= 2.0.27',  '< 2.1'
 
 # Background jobs
+gem 'delayed_job', '4.1.11'
 gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.4'
 gem 'delayed_job_recurring', '~> 0.3.8'
 
