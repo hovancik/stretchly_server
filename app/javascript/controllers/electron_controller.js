@@ -1,5 +1,5 @@
-import { Controller } from 'stimulus'
-const semver = require('semver')
+import { Controller } from '@hotwired/stimulus'
+import semver from 'semver'
 
 export default class extends Controller {
   static targets = [ 'visible', 'unsupported', 'loader' ]

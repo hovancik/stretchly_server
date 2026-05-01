@@ -22,17 +22,14 @@
 
 /node_modules
 /yarn-error.log
+yarn-debug.log*
+.yarn-integrity
 
 /public/assets
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-.yarn-integrity
 
 # ENV
 .env
@@ -40,9 +37,6 @@ yarn-debug.log*
 # Test coverage
 /coverage/
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+# Ignore compiled asset builds; keep placeholder to ensure dir exists
+/app/assets/builds/*
+!/app/assets/builds/.keep

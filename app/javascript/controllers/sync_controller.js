@@ -1,6 +1,14 @@
-import { Controller } from 'stimulus'
-const isEqual = require('lodash.isequal')
-const util = require('util')
+import { Controller } from '@hotwired/stimulus'
+import isEqual from 'lodash.isequal'
+
+const inspect = (value) => {
+  if (value === undefined) return 'undefined'
+  try {
+    return JSON.stringify(value, null, 2)
+  } catch (_e) {
+    return String(value)
+  }
+}
 
 export default class extends Controller {
   static targets = ["settings"]
@@ -74,8 +82,8 @@ export default class extends Controller {
       if (!isEqual(stretchlySettings[key], remoteSettings.data[key]) ) {
         allSame = false
         let html = `<div class="box"><h2 class="is-size-5">${key}</h2>`
-        html += `<p> <span class="has-text-primary" style="white-space: pre-line">${util.inspect(stretchlySettings[key], { compact: false, depth: 5 })}</span><br/>`
-        html += `<span class="has-text-info" style="white-space: pre-line">${util.inspect(remoteSettings.data[key], { compact: false, depth: 5 })}</span></p></div>`
+        html += `<p> <span class="has-text-primary" style="white-space: pre-line">${inspect(stretchlySettings[key])}</span><br/>`
+        html += `<span class="has-text-info" style="white-space: pre-line">${inspect(remoteSettings.data[key])}</span></p></div>`
         this.settingsTarget.insertAdjacentHTML('beforeEnd', html)
       }
     })
