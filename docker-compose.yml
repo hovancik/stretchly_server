@@ -1,14 +1,20 @@
 version: '3'
 services:
-  webpacker:
+  js:
     build: .
     env_file:
       - '.env.docker'
-    command: ./bin/webpack-dev-server
+    command: yarn build:dev --watch
     volumes:
       - .:/stretchly_server
-    ports:
-      - '3035:3035'
+    network_mode: "bridge"
+  css:
+    build: .
+    env_file:
+      - '.env.docker'
+    command: yarn build:css --watch
+    volumes:
+      - .:/stretchly_server
     network_mode: "bridge"
   db:
     image: postgres
@@ -26,6 +32,8 @@ services:
       - "4000:4000"
     depends_on:
       - db
+      - js
+      - css
     links:
       - db:db
     network_mode: "bridge"

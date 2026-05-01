@@ -1,0 +1,9 @@
+@use '@fortawesome/fontawesome-free/scss/variables' with ($font-path: '@fortawesome/fontawesome-free/webfonts'
+);
+@use '@fortawesome/fontawesome-free/scss/fontawesome';
+@use '@fortawesome/fontawesome-free/scss/brands';
+@use '@fortawesome/fontawesome-free/scss/regular';
+@use '@fortawesome/fontawesome-free/scss/solid';
+
+$family-sans-serif: 'Open Sans', sans-serif;
+@import 'bulma/bulma';
