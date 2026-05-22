@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.7'
+gem 'rails', '~> 7.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -43,7 +43,7 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '~> 4.0', '>= 4.0.1'
+  gem 'web-console', '~> 4.2'
   gem 'listen', '~> 3.1', '>= 3.1.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -53,12 +53,10 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 3.29'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'webdrivers'
+  # Selenium 4.11+ ships Selenium Manager, no separate webdrivers gem needed
+  gem 'selenium-webdriver', '~> 4.11'
   # Code coverage
   gem 'simplecov', require: false
-  # Pin minitest to 5.x for Rails 6.1 compatibility
   gem 'minitest', '~> 5.16'
 end
 
@@ -78,7 +76,7 @@ gem "graphql",     '>= 2.0.27',  '< 2.1'
 
 # Background jobs
 gem 'delayed_job', '4.1.11'
-gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.4'
+gem 'delayed_job_active_record', '~> 4.1.8'
 gem 'delayed_job_recurring', '~> 0.3.8'
 
 # Error reporting
