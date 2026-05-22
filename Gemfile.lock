@@ -317,7 +317,7 @@ DEPENDENCIES
   patreon!
   pg (>= 0.18, < 2.0)
   puma (~> 6.4)
-  rails (~> 6.0)
+  rails (~> 6.1.7)
   rollbar
   selenium-webdriver
   simplecov
@@ -329,7 +329,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.2.2p53
+  ruby 3.2.2p53
 
 BUNDLED WITH
   4.0.10
