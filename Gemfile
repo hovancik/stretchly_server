@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -75,7 +75,7 @@ gem 'graphlient'
 gem "graphql",     '>= 2.0.27',  '< 2.1'
 
 # Background jobs
-gem 'delayed_job', '4.1.11'
+gem 'delayed_job', '~> 4.1.13'
 gem 'delayed_job_active_record', '~> 4.1.8'
 gem 'delayed_job_recurring', '~> 0.3.8'
 
