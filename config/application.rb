@@ -22,7 +22,10 @@ Bundler.require(*Rails.groups)
 module StretchlyServer
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 7.1
+
+    # Autoload lib/ via Zeitwerk (Rails 7.1 default); skip non-Ruby directories.
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
