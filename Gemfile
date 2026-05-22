@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.0'
+gem 'rails', '~> 7.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -87,13 +87,3 @@ gem "net-smtp" # to send email
 gem "net-imap" # for rspec
 gem "net-pop"  # for rspec
 
-# concurrent-ruby 1.3.5 removed dependency on logger, see:
-# https://github.com/ruby-concurrency/concurrent-ruby/commit/d7ce956dacd0b772273d39b8ed31a30cff7ecf38
-# Unfortunately this broke Rails because ActiveSupport used Logger
-# before requiring logger.
-# Since the failure happens rather early in rails bootstrapping,
-# patching it is difficult, thus downgrade concurrent-ruby.
-# The issue is fixed in 7-0-stable and should be shipped in the release
-# after 7.0.8.7, at which point the pin of concurrent-ruby should be removed.
-# See https://github.com/rails/rails/issues/54263
-gem 'concurrent-ruby', '1.3.4'
