@@ -25,7 +25,8 @@ module StretchlyServer
     config.load_defaults 8.1
 
     # Autoload lib/ via Zeitwerk (Rails 7.1 default); skip non-Ruby directories.
-    config.autoload_lib(ignore: %w[assets tasks])
+    # omniauth is vendored (OmniAuth/VERSION naming) and required explicitly, so exclude it from autoloading.
+    config.autoload_lib(ignore: %w[assets tasks omniauth])
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
