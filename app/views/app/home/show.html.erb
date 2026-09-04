@@ -2,9 +2,7 @@
   <% if logged_in? %>
     <div class="hero-head">
       <nav class="column">
-        <a href="<%= app_session_path(1) %>" data-method="delete" class="is-pulled-right button is-small is-primary is-inverted is-outlined">
-          Logout
-        </a>
+        <%= button_to "Logout", app_session_path(1), method: :delete, class: "is-pulled-right button is-small is-primary is-inverted is-outlined" %>
       </nav>
     </div>
   <% end %>
