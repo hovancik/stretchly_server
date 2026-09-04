@@ -219,9 +219,6 @@ GEM
     omniauth-oauth2 (1.7.3)
       oauth2 (>= 1.4, < 3)
       omniauth (>= 1.9, < 3)
-    omniauth-patreon (1.0.2)
-      omniauth (~> 1.2)
-      omniauth-oauth2 (~> 1.1)
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-x86_64-linux)
     pp (0.6.3)
@@ -362,7 +359,6 @@ DEPENDENCIES
   net-pop
   net-smtp
   omniauth-github
-  omniauth-patreon
   patreon!
   pg (>= 0.18, < 2.0)
   puma (~> 7.2)
