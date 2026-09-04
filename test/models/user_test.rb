@@ -39,4 +39,17 @@ class UserTest < ActiveSupport::TestCase
     assert_equal original_manual_contributor, found_user.manual_contributor
     assert_equal existing_user.id, found_user.id
   end
+
+  test "patreon strategy uses the v2 identity-only oauth flow" do
+    require Rails.root.join('lib/omniauth/strategies/patreon')
+
+    strategy = OmniAuth::Strategies::Patreon.new('client-id', 'client-secret')
+    url = strategy.send(:identity_url)
+
+    assert_equal 'identity', OmniAuth::Strategies::Patreon::DEFAULT_SCOPE
+    assert_includes url, '/api/oauth2/v2/identity'
+    assert_equal '/api/oauth2/token', strategy.options.client_options.token_url
+    assert_no_match(/fields\[user\]=.*email,/, url)
+    assert_no_match(/identity\[email\]/, url)
+  end
 end
