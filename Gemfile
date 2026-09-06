@@ -66,8 +66,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Auth
 gem 'omniauth-github'
 
-# Patreon
-gem 'patreon', git: 'https://github.com/hovancik/patreon-ruby', branch: 'feature/remove-json-api-vanilla'
 #  Github API - Sponsors
 gem 'graphlient'
 # https://github.com/github/graphql-client/issues/310
