@@ -1,4 +1,4 @@
-FROM ruby:3.2.2
+FROM ruby:3.4.13
 RUN apt-get update -qq
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN NODE_VERSION=20.19.6 \
