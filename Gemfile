@@ -11,6 +11,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 7.2'
 # The asset pipeline
 gem 'sprockets-rails'
+# Sprockets 4.2.2 passes create_additions, which JSON 3 removed.
+gem 'json', '< 3'
 # Bundle and transpile JavaScript
 gem 'jsbundling-rails'
 # Bundle and process CSS

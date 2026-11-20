@@ -8,6 +8,17 @@ services:
     volumes:
       - ../..:/workspaces:cached
     command: sleep infinity
+    environment:
+      SELENIUM_HOST: selenium
+      CAPYBARA_SERVER_PORT: "45678"
+      CAPYBARA_APP_HOST: http://app:45678
+    depends_on:
+      - postgres
+      - selenium
+  selenium:
+    image: seleniarm/standalone-chromium
+    restart: unless-stopped
+    shm_size: 2gb
   postgres:
     image: postgres:15-alpine
     restart: unless-stopped

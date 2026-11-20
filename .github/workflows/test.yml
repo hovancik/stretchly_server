@@ -3,6 +3,10 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/stretchly_server_test
+      MIN_STRETCHLY_VERSION: 1.6.0
     services:
       postgres:
         image: postgres:10
@@ -33,9 +37,29 @@ jobs:
           sudo apt-get -yqq install libpq-dev
           bundle config set deployment false
           bundle install --jobs 4 --retry 3
-          cp config/database.github.yml config/database.yml
           bundle exec rails db:create
           bundle exec rails db:migrate
           yarn --frozen-lockfile
+      - name: Build assets for browser tests
+        run: |
+          yarn build
+          yarn build:css
       - name: Run unit tests
         run: bundle exec rails test
+      - name: Run system tests
+        run: bundle exec rails test:system
+      - name: Check Hatchbox asset tasks
+        env:
+          RAILS_ENV: production
+          SECRET_KEY_BASE_DUMMY: '1'
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/stretchly_server_test
+        run: |
+          bundle exec rails assets:precompile
+          bundle exec rails assets:clean
+      - name: Upload system test screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: system-test-screenshots
+          path: tmp/screenshots/*.png
+          if-no-files-found: ignore
