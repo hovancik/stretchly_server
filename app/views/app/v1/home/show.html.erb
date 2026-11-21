@@ -28,17 +28,11 @@
             <div data-electron-target="unsupported" class="notification is-warning has-text-left">
               Looks like you are using an unsupported version of Stretchly. This might not work.
             </div>
-            <a onclick="window.ElectronBridge.showContributorPreferences()" class="button is-light is-inverted is-outlined">
+            <a data-electron-target="contributorPreferences" style="display: none" onclick="window.ElectronBridge.showContributorPreferences()" class="button is-light is-inverted is-outlined">
               <span class="icon is-small">
                 <i class="fas fa-user-cog"></i>
               </span>
               <span>Contributor Preferences</span>
-            </a>
-            <a href="<%= app_v1_sync_path %>" class="button is-light is-inverted is-outlined">
-              <span class="icon is-small">
-                <i class="fas fa-sync"></i>
-              </span>
-              <span>Sync Preferences</span>
             </a>
           <% else %>
             <h2 class="subtitle">
@@ -59,14 +53,18 @@
               <span>I am contributor already</span>
             </a>
           <% end %>
+          <a href="<%= app_v1_sync_path %>" class="button is-light is-inverted is-outlined">
+            <span class="icon is-small">
+              <i class="fas fa-sync"></i>
+            </span>
+            <span>Sync Preferences</span>
+          </a>
         <% else %>
           <h1 class="title is-spaced is-size-1">
-            Stretchly contributor?
+            Sync your preferences
           </h1>
           <h2 class="subtitle">
-            There is something more you will get - apart from good
-            feeling. More ways to personalize and get control on how
-            the app works for you.
+            Sign in to back up and restore your Stretchly preferences.
           </h2>
           <div data-controller="terms">
             <p class="buttons">

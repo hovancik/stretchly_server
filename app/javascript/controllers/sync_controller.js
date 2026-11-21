@@ -31,30 +31,43 @@ export default class extends Controller {
 
   async backup () {
     this.element.classList.add('is-loading')
-    const settings = await window.ElectronBridge.currentSettings()
-    let result = await fetch('/settings', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'X-CSRF-Token': document.querySelector('[name=csrf-token]').content,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'setting': {
-          data: settings
-        }
+    try {
+      const settings = await window.ElectronBridge.currentSettings()
+      let result = await fetch('/settings', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'X-CSRF-Token': document.querySelector('[name=csrf-token]').content,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'setting': {
+            data: settings
+          }
+        })
       })
-    })
-    if (result.ok) {
-      window.location.reload()
+      if (result.status === 401) {
+        window.location.href = '/app/v1'
+        return
+      }
+      if (result.ok) {
+        window.location.reload()
+      }
+    } finally {
+      this.element.classList.remove('is-loading')
     }
   }
 
   async restore () {
     this.element.classList.add('is-loading')
-    const remoteSettings = await this.remoteSettings()
-    await window.ElectronBridge.restoreRemoteSettings(remoteSettings.data)
-    window.location.reload()
+    try {
+      const remoteSettings = await this.remoteSettings()
+      if (remoteSettings === undefined) return
+      await window.ElectronBridge.restoreRemoteSettings(remoteSettings.data)
+      window.location.reload()
+    } finally {
+      this.element.classList.remove('is-loading')
+    }
   }
 
   async remoteSettings () {
@@ -62,6 +75,11 @@ export default class extends Controller {
       credentials: 'same-origin',
       method: 'GET'
     })
+    if (result.status === 401) {
+      window.location.href = '/app/v1'
+      return
+    }
+    if (!result.ok) throw new Error(`Could not read preferences (${result.status})`)
     return await result.json()
   }
 
@@ -71,7 +89,9 @@ export default class extends Controller {
     
     const stretchlySettings = await window.ElectronBridge.currentSettings()
     
-    let remoteSettings = await this.remoteSettings() || {data: {}}
+    let remoteSettings = await this.remoteSettings()
+    if (remoteSettings === undefined) return
+    remoteSettings = remoteSettings || {data: {}}
     
     let keys = Object.assign({}, Object.keys(stretchlySettings))
     if (remoteSettings && remoteSettings.data) {

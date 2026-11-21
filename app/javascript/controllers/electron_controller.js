@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import semver from 'semver'
 
 export default class extends Controller {
-  static targets = [ 'visible', 'unsupported', 'loader' ]
+  static targets = [ 'visible', 'unsupported', 'loader', 'contributorPreferences', 'legacyPreferences' ]
   static values = { minimalStretchlyVersion: String, isContributor: Boolean }
 
   connect () {
@@ -24,6 +24,12 @@ export default class extends Controller {
   async checkElectronBridge () {
     if (window.ElectronBridge) {
       this.hideLoader()
+      this.contributorPreferencesTargets.forEach((el) => {
+        el.style.display = typeof window.ElectronBridge.showContributorPreferences === 'function' ? '' : 'none'
+      })
+      this.legacyPreferencesTargets.forEach((el) => {
+        el.style.display = typeof window.ElectronBridge.openContriborSettings === 'function' ? '' : 'none'
+      })
       this.showContent()
       await this.setUnsupported()
       this.setContributor()
@@ -80,7 +86,8 @@ export default class extends Controller {
   }
 
   setContributor () {
-    if (this.hasIsContributorValue && this.isContributorValue) {
+    if (this.isContributorValue &&
+        window.ElectronBridge && typeof window.ElectronBridge.setContributor === 'function') {
       window.ElectronBridge.setContributor()
     }
   }

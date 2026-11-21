@@ -25,7 +25,7 @@
             <div data-electron-target="unsupported">
               Looks like you are using an unsupported version of Stretchly. This might not work.
             </div>
-            <a onclick="window.ElectronBridge.openContriborSettings()" class="button is-primary is-inverted is-outlined">
+            <a data-electron-target="legacyPreferences" style="display: none" onclick="window.ElectronBridge.openContriborSettings()" class="button is-primary is-inverted is-outlined">
               Extra Settings
             </a>
           <% else %>
