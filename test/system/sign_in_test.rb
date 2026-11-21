@@ -9,21 +9,33 @@ class SignInTest < ApplicationSystemTestCase
   end
 
   %w[github patreon].each do |provider|
-    test "signing in with #{provider} and logging out" do
+    test "the new app can sign in with #{provider} and log out" do
       user = sign_in(provider: provider)
 
       assert user.manual_contributor
       assert_selector "h1", text: "Thank you!"
-      assert_selector "a", text: "Contributor Preferences"
+      assert_no_selector "a", text: "Contributor Preferences"
+      javascript_errors = page.driver.browser.logs.get(:browser).select do |entry|
+        entry.level == "SEVERE" && entry.message.include?("Uncaught")
+      end
+      assert_empty javascript_errors.map(&:message)
 
       click_button "Logout"
 
       assert_current_path app_v1_root_path
+      assert_no_button "Logout"
       connect_stretchly
       assert_button "Continue with Github", disabled: true
-      assert_no_button "Logout"
       assert_no_link "Sync Preferences"
     end
+  end
+
+  test "older apps still unlock and open Contributor Preferences" do
+    sign_in(legacy: true)
+
+    assert page.evaluate_script("window.contributorUnlocked")
+    find("a", text: "Contributor Preferences", exact_text: true).click
+    assert page.evaluate_script("window.contributorPreferencesOpened")
   end
 
   test "anonymous users must sign in before syncing" do

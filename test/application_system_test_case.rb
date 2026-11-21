@@ -60,12 +60,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   private
 
-  def sign_in(provider: "github")
+  def sign_in(provider: "github", legacy: false)
     user = User.create!(provider: provider, uid: "system-test-user")
     OmniAuth.config.add_mock(provider.to_sym, uid: user.uid)
 
     visit app_v1_root_path(provider: provider)
-    connect_stretchly
+    connect_stretchly(legacy: legacy)
 
     button = "Continue with #{provider == 'github' ? 'Github' : 'Patreon'}"
     assert_button button, disabled: true
@@ -78,26 +78,32 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
       assert_button "Logout"
     end
 
-    connect_stretchly
+    connect_stretchly(legacy: legacy)
     assert_link "Sync Preferences"
     user
   end
 
-  def connect_stretchly
+  def connect_stretchly(legacy: false)
     # The browser exercises the real JS and HTTP requests; only the desktop API is mocked.
-    page.execute_script(<<~JS, LOCAL_PREFERENCES)
+    page.execute_script(<<~JS, LOCAL_PREFERENCES, legacy)
       if (!sessionStorage.getItem('stretchlySystemPreferences')) {
         sessionStorage.setItem('stretchlySystemPreferences', JSON.stringify(arguments[0]));
       }
       window.ElectronBridge = {
         stretchlyVersion: async () => '99.0.0',
-        setContributor: () => {},
-        showContributorPreferences: () => {},
         currentSettings: async () => JSON.parse(sessionStorage.getItem('stretchlySystemPreferences')),
         restoreRemoteSettings: async (settings) => {
           sessionStorage.setItem('stretchlySystemPreferences', JSON.stringify(settings));
         }
       };
+      if (arguments[1]) {
+        window.ElectronBridge.setContributor = () => {
+          window.contributorUnlocked = true;
+        };
+        window.ElectronBridge.showContributorPreferences = () => {
+          window.contributorPreferencesOpened = true;
+        };
+      }
     JS
   end
 

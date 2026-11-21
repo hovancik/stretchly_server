@@ -1,8 +1,12 @@
 require "application_system_test_case"
 
 class PreferencesSyncTest < ApplicationSystemTestCase
-  test "a contributor can create and update a preference backup" do
+  test "a non-contributor on the new app can create and update a preference backup" do
     user = sign_in
+    user.update!(contributor: false, manual_contributor: false)
+    visit app_v1_root_path
+    connect_stretchly
+    assert_link "Sync Preferences"
     click_link "Sync Preferences"
     connect_stretchly
 
@@ -34,7 +38,7 @@ class PreferencesSyncTest < ApplicationSystemTestCase
     assert_equal 1, Setting.where(user: user).count
   end
 
-  test "a contributor can restore remote preferences to Stretchly" do
+  test "the new app can restore remote preferences to Stretchly" do
     user = sign_in
     remote_preferences = LOCAL_PREFERENCES.merge("miniBreakInterval" => 900_000)
     user.create_setting!(data: remote_preferences)
@@ -56,7 +60,7 @@ class PreferencesSyncTest < ApplicationSystemTestCase
     assert_equal remote_preferences, user.reload.setting.data
   end
 
-  test "logged-out users cannot revisit preference sync" do
+  test "logged-out users on the new app cannot revisit preference sync" do
     sign_in
     click_link "Sync Preferences"
     connect_stretchly
