@@ -11,7 +11,7 @@ class PreferencesSyncTest < ApplicationSystemTestCase
     assert_selector "#settings h2", text: "miniBreakInterval"
 
     find("a", text: "Backup", exact_text: true).click
-    reconnect_after_reload
+    connect_stretchly
 
     assert_text "Your Local and Remote preferences are the same."
     assert_equal LOCAL_PREFERENCES, user.reload.setting.data
@@ -23,11 +23,11 @@ class PreferencesSyncTest < ApplicationSystemTestCase
       updated_preferences
     )
     click_link "Refresh Data"
-    reconnect_after_reload
+    connect_stretchly
     assert_selector "#settings h2", text: "miniBreakInterval"
 
     find("a", text: "Backup", exact_text: true).click
-    reconnect_after_reload
+    connect_stretchly
 
     assert_text "Your Local and Remote preferences are the same."
     assert_equal updated_preferences, user.reload.setting.data
@@ -47,7 +47,7 @@ class PreferencesSyncTest < ApplicationSystemTestCase
     end
 
     find("a", text: "Restore", exact_text: true).click
-    reconnect_after_reload
+    connect_stretchly
 
     assert_text "Your Local and Remote preferences are the same."
     assert_equal remote_preferences, page.evaluate_script(

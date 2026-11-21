@@ -15,13 +15,17 @@ class SignInTest < ApplicationSystemTestCase
       assert user.manual_contributor
       assert_selector "h1", text: "Thank you!"
       assert_selector "a", text: "Contributor Preferences"
+      javascript_errors = page.driver.browser.logs.get(:browser).select do |entry|
+        entry.level == "SEVERE" && entry.message.include?("Uncaught")
+      end
+      assert_empty javascript_errors.map(&:message)
 
       click_button "Logout"
 
       assert_current_path app_v1_root_path
       connect_stretchly
-      assert_button "Continue with Github", disabled: true
       assert_no_button "Logout"
+      assert_button "Continue with Github", disabled: true
       assert_no_link "Sync Preferences"
     end
   end
