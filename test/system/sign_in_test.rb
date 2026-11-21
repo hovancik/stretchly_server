@@ -23,8 +23,8 @@ class SignInTest < ApplicationSystemTestCase
       click_button "Logout"
 
       assert_current_path app_v1_root_path
-      assert_no_button "Logout"
       connect_stretchly
+      assert_no_button "Logout"
       assert_button "Continue with Github", disabled: true
       assert_no_link "Sync Preferences"
     end
