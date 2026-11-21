@@ -75,15 +75,22 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     assert_enqueued_jobs 2 do
       click_button button
       assert_current_path app_v1_root_path
+      connect_stretchly
       assert_button "Logout"
     end
 
-    connect_stretchly
     assert_link "Sync Preferences"
     user
   end
 
   def connect_stretchly
+    # A fresh document has no mock bridge; wait without holding old DOM nodes.
+    page.document.synchronize do
+      unless page.evaluate_script("document.readyState === 'complete' && !window.ElectronBridge")
+        raise Capybara::ExpectationNotMet, "Waiting for a fresh Stretchly document"
+      end
+    end
+
     # The browser exercises the real JS and HTTP requests; only the desktop API is mocked.
     page.execute_script(<<~JS, LOCAL_PREFERENCES)
       if (!sessionStorage.getItem('stretchlySystemPreferences')) {
@@ -99,10 +106,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         }
       };
     JS
-  end
-
-  def reconnect_after_reload
-    assert_selector "[data-electron-target='loader']"
-    connect_stretchly
   end
 end
