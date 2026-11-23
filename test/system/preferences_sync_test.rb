@@ -1,6 +1,25 @@
 require "application_system_test_case"
 
 class PreferencesSyncTest < ApplicationSystemTestCase
+  test "Sync shows a local preference missing from the backup" do
+    user = sign_in(v2: true)
+    page.execute_script(
+      "sessionStorage.setItem('stretchlySystemPreferences', JSON.stringify(arguments[0]))",
+      { "language" => "en", "theme" => "dark" }
+    )
+    user.create_setting!(data: { "theme" => "dark" })
+
+    click_link "Refresh Data"
+    connect_stretchly
+
+    assert_selector "#settings .box", count: 1
+    within "#settings .box" do
+      assert_selector "h2", exact_text: "language"
+      assert_selector ".has-text-primary", exact_text: '"en"'
+      assert_selector ".has-text-info", exact_text: "undefined"
+    end
+  end
+
   test "a v2 user without contributor status can create and update a preference backup" do
     user = sign_in(v2: true)
 

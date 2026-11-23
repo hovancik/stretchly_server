@@ -73,12 +73,9 @@ export default class extends Controller {
     
     let remoteSettings = await this.remoteSettings() || {data: {}}
     
-    let keys = Object.assign({}, Object.keys(stretchlySettings))
-    if (remoteSettings && remoteSettings.data) {
-      Object.assign(keys, Object.keys(remoteSettings.data))
-    }
+    const keys = new Set([...Object.keys(stretchlySettings), ...Object.keys(remoteSettings.data)])
     let allSame = true
-    Object.values(keys).forEach((key) => {
+    keys.forEach((key) => {
       if (!isEqual(stretchlySettings[key], remoteSettings.data[key]) ) {
         allSame = false
         let html = `<div class="box"><h2 class="is-size-5">${key}</h2>`
