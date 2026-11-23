@@ -10,6 +10,12 @@ Rails.application.routes.draw do
       resources :sessions, only: [:destroy]
       get :sync, to:'sync#show'
     end
+    namespace :v2 do
+      root 'home#show'
+      get '/auth/:provider/callback', to: 'sessions#create'
+      resources :sessions, only: [:destroy]
+      get :sync, to: 'sync#show'
+    end
   end
   resources :settings, only: [:index, :create]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

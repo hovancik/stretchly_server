@@ -15,10 +15,7 @@ class SignInTest < ApplicationSystemTestCase
       assert user.manual_contributor
       assert_selector "h1", text: "Thank you!"
       assert_selector "a", text: "Contributor Preferences"
-      javascript_errors = page.driver.browser.logs.get(:browser).select do |entry|
-        entry.level == "SEVERE" && entry.message.include?("Uncaught")
-      end
-      assert_empty javascript_errors.map(&:message)
+      assert_no_javascript_errors
 
       click_button "Logout"
 
@@ -37,5 +34,19 @@ class SignInTest < ApplicationSystemTestCase
     connect_stretchly
     assert_button "Continue with Github", disabled: true
     assert_no_selector "h1", text: "Sync Preferences"
+  end
+
+  test "legacy contributors can still back up preferences" do
+    user = sign_in
+    click_link "Sync Preferences"
+    connect_stretchly(legacy: true)
+    assert_selector "#settings h2", text: "miniBreakInterval"
+
+    find("a", text: "Backup", exact_text: true).click
+    connect_stretchly(legacy: true)
+
+    assert_equal LOCAL_PREFERENCES, user.reload.setting.data
+    assert_text "Your Local and Remote preferences are the same."
+    assert_no_javascript_errors
   end
 end

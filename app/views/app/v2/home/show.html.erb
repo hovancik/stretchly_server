@@ -1,0 +1,48 @@
+<section class="hero is-light is-fullheight">
+  <div class="hero-body">
+    <div data-controller="electron" class="container has-text-centered" data-electron-minimal-stretchly-version-value="<%= ENV['MIN_STRETCHLY_VERSION'] %>">
+      <div data-electron-target="loader" class="has-text-centered">
+        <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center" style="min-height: 200px;">
+          <button class="button is-large is-light is-loading"></button>
+          <p class="has-text-grey-light mt-4">Loading Stretchly...</p>
+        </div>
+      </div>
+      <div data-electron-target="visible">
+        <h1 class="title is-spaced is-size-1">
+          Sync your preferences
+        </h1>
+        <h2 class="subtitle">
+          Sign in to back up and restore your Stretchly preferences.
+        </h2>
+        <div data-controller="terms">
+          <p class="buttons">
+            <form action="/app/v2/auth/patreon" method="get">
+              <button data-terms-target="auth" class="button is-light is-inverted is-outlined">
+                <span class="icon is-small">
+                  <i class="fab fa-patreon"></i>
+                </span>
+                <span>Continue with Patreon</span>
+              </button>
+            </form>
+            <form action="/app/v2/auth/github" method="get">
+              <button data-terms-target="auth" class="button is-light is-inverted is-outlined">
+                <span class="icon is-small">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Continue with Github</span>
+              </button>
+            </form>
+          </p>
+          <label class="checkbox is-large">
+            <input type="checkbox" data-terms-target="checkbox" data-action="terms#setDisabled">
+            I agree to the
+            <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/Stretchly_server/blob/trunk/TERMS.md')">Terms and Conditions</a>
+            and
+            <a onclick="window.ElectronBridge.openExternal('https://github.com/hovancik/Stretchly_server/blob/trunk/PRIVACY.md')">Privacy Policy</a>.
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render "shared/footer_v1" %>
+</section>

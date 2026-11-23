@@ -1,7 +1,8 @@
 class SettingsController < ApplicationController
+  prepend_before_action :require_login
 
   def index
-    render json: current_user&.setting.as_json
+    render json: current_user.setting.as_json
   end
 
   def create
@@ -13,6 +14,10 @@ class SettingsController < ApplicationController
   end
 
   private
+
+  def require_login
+    head :unauthorized unless logged_in?
+  end
 
   def setting_params
     params.require(:setting).permit(data: {})
