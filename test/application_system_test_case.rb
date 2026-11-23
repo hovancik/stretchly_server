@@ -60,30 +60,32 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   private
 
-  def sign_in(provider: "github")
+  def sign_in(provider: "github", v2: false)
     user = User.create!(provider: provider, uid: "system-test-user")
+    user.update!(contributor: false, manual_contributor: false) if v2
     OmniAuth.config.add_mock(provider.to_sym, uid: user.uid)
 
-    visit app_v1_root_path(provider: provider)
-    connect_stretchly
+    visit(v2 ? app_v2_root_path : app_v1_root_path(provider: provider))
+    connect_stretchly(legacy: !v2)
 
     button = "Continue with #{provider == 'github' ? 'Github' : 'Patreon'}"
     assert_button button, disabled: true
     find("[data-terms-target='checkbox']").check
     assert_button button, disabled: false
 
-    assert_enqueued_jobs 2 do
+    expected_contributor_jobs = v2 ? 0 : 2
+    assert_enqueued_jobs expected_contributor_jobs do
       click_button button
-      assert_current_path app_v1_root_path
-      connect_stretchly
+      assert_current_path(v2 ? app_v2_sync_path : app_v1_root_path)
+      connect_stretchly(legacy: !v2)
       assert_button "Logout"
     end
 
-    assert_link "Sync Preferences"
+    assert_link "Sync Preferences" unless v2
     user
   end
 
-  def connect_stretchly
+  def connect_stretchly(legacy: false)
     # A fresh document has no mock bridge; wait without holding old DOM nodes.
     page.document.synchronize do
       unless page.evaluate_script("document.readyState === 'complete' && !window.ElectronBridge")
@@ -92,19 +94,29 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     end
 
     # The browser exercises the real JS and HTTP requests; only the desktop API is mocked.
-    page.execute_script(<<~JS, LOCAL_PREFERENCES)
+    page.execute_script(<<~JS, LOCAL_PREFERENCES, legacy)
       if (!sessionStorage.getItem('stretchlySystemPreferences')) {
         sessionStorage.setItem('stretchlySystemPreferences', JSON.stringify(arguments[0]));
       }
       window.ElectronBridge = {
         stretchlyVersion: async () => '99.0.0',
-        setContributor: () => {},
-        showContributorPreferences: () => {},
+        openExternal: () => {},
         currentSettings: async () => JSON.parse(sessionStorage.getItem('stretchlySystemPreferences')),
         restoreRemoteSettings: async (settings) => {
           sessionStorage.setItem('stretchlySystemPreferences', JSON.stringify(settings));
         }
       };
+      if (arguments[1]) {
+        window.ElectronBridge.setContributor = () => {};
+        window.ElectronBridge.showContributorPreferences = () => {};
+      }
     JS
+  end
+
+  def assert_no_javascript_errors
+    javascript_errors = page.driver.browser.logs.get(:browser).select do |entry|
+      entry.level == "SEVERE" && entry.message.include?("Uncaught")
+    end
+    assert_empty javascript_errors.map(&:message)
   end
 end
