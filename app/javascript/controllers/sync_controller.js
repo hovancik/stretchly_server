@@ -78,10 +78,18 @@ export default class extends Controller {
     keys.forEach((key) => {
       if (!isEqual(stretchlySettings[key], remoteSettings.data[key]) ) {
         allSame = false
-        let html = `<div class="box"><h2 class="is-size-5">${key}</h2>`
-        html += `<p> <span class="has-text-primary" style="white-space: pre-line">${inspect(stretchlySettings[key])}</span><br/>`
-        html += `<span class="has-text-info" style="white-space: pre-line">${inspect(remoteSettings.data[key])}</span></p></div>`
-        this.settingsTarget.insertAdjacentHTML('beforeEnd', html)
+        const box = document.createElement('div')
+        box.className = 'box'
+        box.innerHTML = `
+          <h2 class="is-size-5"></h2>
+          <p>
+            <span class="has-text-primary" style="white-space: pre-line"></span><br/>
+            <span class="has-text-info" style="white-space: pre-line"></span>
+          </p>`
+        box.querySelector('h2').textContent = key
+        box.querySelector('.has-text-primary').textContent = inspect(stretchlySettings[key])
+        box.querySelector('.has-text-info').textContent = inspect(remoteSettings.data[key])
+        this.settingsTarget.append(box)
       }
     })
     if (allSame) {
