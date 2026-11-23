@@ -31,30 +31,34 @@ export default class extends Controller {
 
   async backup () {
     this.element.classList.add('is-loading')
-    const settings = await window.ElectronBridge.currentSettings()
-    let result = await fetch('/settings', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'X-CSRF-Token': document.querySelector('[name=csrf-token]').content,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'setting': {
-          data: settings
-        }
+    try {
+      const settings = await window.ElectronBridge.currentSettings()
+      const result = await fetch('/settings', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'X-CSRF-Token': document.querySelector('[name=csrf-token]').content,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ setting: { data: settings } })
       })
-    })
-    if (result.ok) {
-      window.location.reload()
+      // On 401 the Sync page redirects to its own version's login on reload.
+      if (result.ok || result.status === 401) window.location.reload()
+    } finally {
+      this.element.classList.remove('is-loading')
     }
   }
 
   async restore () {
     this.element.classList.add('is-loading')
-    const remoteSettings = await this.remoteSettings()
-    await window.ElectronBridge.restoreRemoteSettings(remoteSettings.data)
-    window.location.reload()
+    try {
+      const remoteSettings = await this.remoteSettings()
+      if (!remoteSettings) return
+      await window.ElectronBridge.restoreRemoteSettings(remoteSettings.data)
+      window.location.reload()
+    } finally {
+      this.element.classList.remove('is-loading')
+    }
   }
 
   async remoteSettings () {
@@ -62,6 +66,8 @@ export default class extends Controller {
       credentials: 'same-origin',
       method: 'GET'
     })
+    if (result.status === 401) window.location.reload()
+    if (!result.ok) return
     return await result.json()
   }
 
@@ -71,12 +77,14 @@ export default class extends Controller {
     
     const stretchlySettings = await window.ElectronBridge.currentSettings()
     
-    let remoteSettings = await this.remoteSettings() || {data: {}}
+    const remoteSettings = await this.remoteSettings()
+    if (remoteSettings === undefined) return
+    const remoteData = remoteSettings?.data ?? {}
     
-    const keys = new Set([...Object.keys(stretchlySettings), ...Object.keys(remoteSettings.data)])
+    const keys = new Set([...Object.keys(stretchlySettings), ...Object.keys(remoteData)])
     let allSame = true
     keys.forEach((key) => {
-      if (!isEqual(stretchlySettings[key], remoteSettings.data[key]) ) {
+      if (!isEqual(stretchlySettings[key], remoteData[key])) {
         allSame = false
         const box = document.createElement('div')
         box.className = 'box'
@@ -88,7 +96,7 @@ export default class extends Controller {
           </p>`
         box.querySelector('h2').textContent = key
         box.querySelector('.has-text-primary').textContent = inspect(stretchlySettings[key])
-        box.querySelector('.has-text-info').textContent = inspect(remoteSettings.data[key])
+        box.querySelector('.has-text-info').textContent = inspect(remoteData[key])
         this.settingsTarget.append(box)
       }
     })
