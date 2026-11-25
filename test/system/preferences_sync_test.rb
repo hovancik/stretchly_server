@@ -68,6 +68,7 @@ class PreferencesSyncTest < ApplicationSystemTestCase
     click_link "Refresh Data"
     connect_stretchly
 
+    assert_text "Stretchly version wasn't recorded"
     assert_selector "#settings .box", count: 1
     within "#settings .box" do
       assert_selector "h2", exact_text: "language"
@@ -79,7 +80,9 @@ class PreferencesSyncTest < ApplicationSystemTestCase
   test "a v2 user without contributor status can create and update a preference backup" do
     user = sign_in(v2: true)
 
-    assert_text "Remote Preferences, never backed up"
+    assert_text "No backup yet"
+    assert_text "Sync is experimental."
+    assert_text "Running Stretchly 99.0.0"
     assert_no_button "Restore"
     assert_selector "#settings h2", text: "miniBreakInterval"
 
@@ -88,6 +91,7 @@ class PreferencesSyncTest < ApplicationSystemTestCase
 
     assert_text "Your Local and Remote preferences are the same."
     assert_equal LOCAL_PREFERENCES, user.reload.setting.data
+    assert_text "Created with Stretchly 99.0.0"
     assert_button "Restore"
 
     updated_preferences = LOCAL_PREFERENCES.merge("miniBreakInterval" => 900_000)
@@ -111,7 +115,7 @@ class PreferencesSyncTest < ApplicationSystemTestCase
   test "a v2 user can restore remote preferences to Stretchly" do
     user = sign_in(v2: true)
     remote_preferences = LOCAL_PREFERENCES.merge("miniBreakInterval" => 900_000)
-    user.create_setting!(data: remote_preferences)
+    user.create_setting!(data: remote_preferences, stretchly_version: "98.0.0")
 
     click_link "Refresh Data"
     connect_stretchly
@@ -119,6 +123,9 @@ class PreferencesSyncTest < ApplicationSystemTestCase
       assert_selector ".has-text-primary", text: "600000"
       assert_selector ".has-text-info", text: "900000"
     end
+
+    assert_text "Running Stretchly 99.0.0"
+    assert_text "Created with Stretchly 98.0.0"
 
     click_button "Restore"
     connect_stretchly

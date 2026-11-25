@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import semver from 'semver'
 
 export default class extends Controller {
-  static targets = [ 'visible', 'unsupported', 'loader' ]
+  static targets = [ 'visible', 'unsupported', 'loader', 'version' ]
   static values = { minimalStretchlyVersion: String, isContributor: Boolean }
 
   connect () {
@@ -74,6 +74,7 @@ export default class extends Controller {
   async setUnsupported () {
     const minVersion = this.minimalStretchlyVersionValue
     const version = await window.ElectronBridge.stretchlyVersion()
+    if (this.hasVersionTarget) this.versionTarget.textContent = version
     this.unsupportedTargets.forEach((el) => {
       el.style.display = semver.gte(version, minVersion) ? 'none' : ''
     })

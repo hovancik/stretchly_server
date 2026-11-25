@@ -20,6 +20,7 @@ class SettingsController < ApplicationController
   end
 
   def setting_params
-    params.require(:setting).permit(data: {})
+    # A client that omits its version replaces the previous backup's version too.
+    params.require(:setting).permit(:stretchly_version, data: {}).reverse_merge(stretchly_version: nil)
   end
 end

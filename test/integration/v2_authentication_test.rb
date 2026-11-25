@@ -37,6 +37,25 @@ class V2AuthenticationTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "an older client overwriting a backup clears its recorded Stretchly version" do
+    get "/app/v2/auth/github"
+    follow_redirect!
+    assert_redirected_to app_v2_sync_path
+
+    post settings_path, as: :json, params: { setting: { data: { language: "en" }, stretchly_version: "1.23.0" } }
+    assert_response :success
+    get settings_path(format: :json)
+    assert_response :success
+    assert_equal "1.23.0", response.parsed_body.fetch("stretchly_version")
+
+    post settings_path, as: :json, params: { setting: { data: { language: "fr" } } }
+    assert_response :success
+    get settings_path(format: :json)
+    assert_response :success
+    assert_equal({ "language" => "fr" }, response.parsed_body.fetch("data"))
+    assert_nil response.parsed_body.fetch("stretchly_version")
+  end
+
   %w[/app /app/v1].each do |prefix|
     test "#{prefix} login keeps its landing page even with a v2 origin" do
       get "#{prefix}/auth/github", params: { origin: app_v2_sync_path }

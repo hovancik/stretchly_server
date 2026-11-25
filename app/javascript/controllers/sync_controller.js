@@ -33,6 +33,7 @@ export default class extends Controller {
     this.element.classList.add('is-loading')
     try {
       const settings = await window.ElectronBridge.currentSettings()
+      const version = await window.ElectronBridge.stretchlyVersion()
       const result = await fetch('/settings', {
         method: 'POST',
         credentials: 'same-origin',
@@ -40,7 +41,7 @@ export default class extends Controller {
           'X-CSRF-Token': document.querySelector('[name=csrf-token]').content,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ setting: { data: settings } })
+        body: JSON.stringify({ setting: { data: settings, stretchly_version: version } })
       })
       // On 401 the Sync page redirects to its own version's login on reload.
       if (result.ok || result.status === 401) window.location.reload()

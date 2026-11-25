@@ -19,14 +19,12 @@
         </div>
         <div class="content">
           <p>
-            Back up saves your current preferences to your account.
-            Restore applies your saved backup to this device.
+            Sync is experimental. You can save your preferences to your account and restore them later.
+            We recommend using the same version of Stretchly for backup and restore.
           </p>
           <p>
-            When there are differences between your Local Preferences
-            and Remote ones, you'll see them below.
-            Local Preferences are <span class="has-text-primary">green</span>,
-            Remote are <span class="has-text-info">blue</span>.
+            Where preferences differ, values from <span class="has-text-primary">this device</span>
+            appear in green and values from your <span class="has-text-info">saved backup</span> in blue.
           </p>
         </div>
         <div class="buttons">
@@ -37,12 +35,27 @@
           <%= link_to "Refresh Data", app_v2_sync_path, class: "button is-success" %>
         </div>
         <div class="box">
-          <span class="has-text-primary">Local Preferences</span> <br/>
-          <% if current_user.setting.present? %>
-            <span class="has-text-info">Remote Preferences, last backed up at <%= current_user.setting.updated_at %></span>
-          <% else %>
-            <span class="has-text-info">Remote Preferences, never backed up</span>
-          <% end %>
+          <dl class="columns">
+            <div class="column">
+              <dt class="has-text-primary has-text-weight-semibold">This device</dt>
+              <dd>Running Stretchly <span data-electron-target="version">…</span></dd>
+            </div>
+            <div class="column">
+              <dt class="has-text-info has-text-weight-semibold">Saved backup</dt>
+              <% if current_user.setting.present? %>
+                <dd>
+                  <% if current_user.setting.stretchly_version.present? %>
+                    Created with Stretchly <%= current_user.setting.stretchly_version %>
+                  <% else %>
+                    Stretchly version wasn't recorded
+                  <% end %>
+                </dd>
+                <dd class="is-size-7">Saved <%= current_user.setting.updated_at.utc.strftime("%d %b %Y at %H:%M UTC") %></dd>
+              <% else %>
+                <dd>No backup yet</dd>
+              <% end %>
+            </div>
+          </dl>
         </div>
         <div data-sync-target="settings" id="settings" class="content"></div>
       </div>
